@@ -26,7 +26,20 @@ class ExpenseTracker:
         print("Запись успешно добавлена!")
 
     def edit_record(self):
-        pass
+        record_id = int(input("Введите номер записи, которую хотите изменить: "))
+        with open(self.file_path, 'r') as file:
+            lines = file.readlines()
+        if record_id < 1 or record_id > len(lines):
+            print("Некорректный номер записи!")
+            return
+        new_date = input("Введите новую дату (ГГГГ-ММ-ДД): ")
+        new_category = input("Введите новую категорию (Доход/Расход): ")
+        new_amount = float(input("Введите новую сумму: "))
+        new_description = input("Введите новое описание: ")
+        lines[record_id - 1] = f"{new_date},{new_category},{new_amount},{new_description}\n"
+        with open(self.file_path, 'w') as file:
+            file.writelines(lines)
+        print("Запись успешно изменена!")
 
     def search_records(self):
         keyword = input("Введите ключевое слово для поиска: ")
