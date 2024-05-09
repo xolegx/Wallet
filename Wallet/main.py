@@ -1,3 +1,6 @@
+import re
+
+
 class ExpenseTracker:
     def __init__(self, file_path: str):  # конструктор класса
         self.file_path = file_path
@@ -18,8 +21,22 @@ class ExpenseTracker:
 
     def add_record(self) -> None:  # добавить запись
         date = input("Введите дату (ГГГГ-ММ-ДД): ")
+        # Проверка формата даты (ГГГГ-ММ-ДД)
+        if not re.match(r"\d{4}-\d{2}-\d{2}", date):
+            print("Некорректный формат даты!")
+            return
         category = input("Введите категорию (Доход/Расход): ")
+        # Проверка категории (должна быть "Доход" или "Расход")
+        if category not in ["Доход", "Расход"]:
+            print("Некорректная категория!")
+            return
         amount = float(input("Введите сумму: "))
+        # Проверка формата суммы (число с плавающей точкой)
+        try:
+            amount = float(amount)
+        except ValueError:
+            print("Некорректный формат суммы!")
+            return
         description = input("Введите описание: ")
         with open(self.file_path, 'a') as file:
             file.write(f"{date},{category},{amount},{description}\n")
@@ -33,8 +50,22 @@ class ExpenseTracker:
             print("Некорректный номер записи!")
             return
         new_date = input("Введите новую дату (ГГГГ-ММ-ДД): ")
+        # Проверка формата даты (ГГГГ-ММ-ДД)
+        if not re.match(r"\d{4}-\d{2}-\d{2}", new_date):
+            print("Некорректный формат даты!")
+            return
         new_category = input("Введите новую категорию (Доход/Расход): ")
+        # Проверка категории (должна быть "Доход" или "Расход")
+        if new_category not in ["Доход", "Расход"]:
+            print("Некорректная категория!")
+            return
         new_amount = float(input("Введите новую сумму: "))
+        # Проверка формата суммы (число с плавающей точкой)
+        try:
+            new_amount = float(new_amount)
+        except ValueError:
+            print("Некорректный формат суммы!")
+            return
         new_description = input("Введите новое описание: ")
         lines[record_id - 1] = f"{new_date},{new_category},{new_amount},{new_description}\n"
         with open(self.file_path, 'w') as file:
