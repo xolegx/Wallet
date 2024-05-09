@@ -3,7 +3,18 @@ class ExpenseTracker:
         self.file_path = file_path
 
     def show_balance(self):
-        pass
+        income = 0
+        expenses = 0
+        with open(self.file_path, 'r') as file:
+            for line in file:
+                record = line.strip().split(',')
+                amount = float(record[2])
+                if record[1] == 'Доход':
+                    income += amount
+                elif record[1] == 'Расход':
+                    expenses += amount
+        balance = income - expenses
+        print(f"Текущий баланс: {balance}\nДоходы: {income}\nРасходы: {expenses}")
 
     def add_record(self):
         pass
@@ -31,3 +42,4 @@ while True:
         expense_tracker.search_records()
     else:
         print("Некорректный выбор.")
+
