@@ -29,7 +29,20 @@ class ExpenseTracker:
         pass
 
     def search_records(self):
-        pass
+        keyword = input("Введите ключевое слово для поиска: ")
+        found_records = []
+        with open(self.file_path, 'r') as file:
+            for line in file:
+                record = line.strip().split(',')
+                if keyword.lower() in record[3].lower():
+                    found_records.append(line)
+        if len(found_records) != 0:
+            print("Найденные записи:")
+            for record in found_records:
+                record = record.strip().split(',')
+                print(f"{record[0]} {record[1]} {record[2]} {record[3]}")
+        else:
+            print("Записи не найдены.")
 
 
 file_path = "expenses.txt"
