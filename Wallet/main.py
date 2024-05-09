@@ -57,6 +57,19 @@ class ExpenseTracker:
         else:
             print("Записи не найдены.")
 
+    def deleite_records(self) -> None:
+        record_id = int(input("Введите номер записи, которую хотите удалить: "))
+        with open(self.file_path, 'r') as file:
+            lines = file.readlines()
+        if record_id < 1 or record_id > len(lines):
+            print("Некорректный номер записи!")
+            return
+        # Удаляем соответствующую строку из списка
+        del lines[record_id - 1]
+        with open(self.file_path, 'w') as file:
+            file.writelines(lines)
+        print("Запись успешно удалена!")
+
 
 def test_add_record():  # тест на добавление записи
     file_path = "test_expenses.txt"
@@ -72,6 +85,7 @@ def test_add_record():  # тест на добавление записи
     assert record[1] == "Расход"  # Проверяемая категория
     assert float(record[2]) == 5000.0  # Проверяемая сумма
     assert record[3] == "Покупка продуктов на др жены"  # Проверяемое описание
+
 
 def test_edit_record():  # тест на изменение записи
     file_path = "test_expenses.txt"
@@ -91,10 +105,22 @@ def test_edit_record():  # тест на изменение записи
     assert record[3] == "Зарплата"  # Проверяемое новое описание
 
 
+def test_delete_record():
+    file_path = "test_expenses.txt"
+    expense_tracker = ExpenseTracker(file_path)
+    # Добавляем запись для удаления
+    expense_tracker.add_record()
+    # Удаляем добавленную запись с индексом "1"
+    expense_tracker.deleite_records()
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        assert len(lines) == 0
+
+
 # основной блок
 file_path: str = "expenses.txt"
 expense_tracker: ExpenseTracker = ExpenseTracker(file_path)
-'''
+
 while True:
     print(f"\n"
           f"1. Вывести баланс \n"
@@ -110,9 +136,12 @@ while True:
         expense_tracker.edit_record()
     elif choice == "4":
         expense_tracker.search_records()
+    elif choice == "5":
+        expense_tracker.deleite_records()
     else:
         print("Некорректный выбор.")
-'''
 
-test_add_record()
-test_edit_record()
+
+# test_add_record()
+# test_edit_record()
+# test_delete_record()
