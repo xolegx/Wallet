@@ -1,8 +1,8 @@
 class ExpenseTracker:
-    def __init__(self, file_path: str):
+    def __init__(self, file_path: str):  # конструктор класса
         self.file_path = file_path
 
-    def show_balance(self) -> None:
+    def show_balance(self) -> None:  # показать баланс
         income = 0
         expenses = 0
         with open(self.file_path, 'r') as file:
@@ -16,7 +16,7 @@ class ExpenseTracker:
         balance = income - expenses
         print(f"Текущий баланс: {balance}\nДоходы: {income}\nРасходы: {expenses}")
 
-    def add_record(self) -> None:
+    def add_record(self) -> None:  # добавить запись
         date = input("Введите дату (ГГГГ-ММ-ДД): ")
         category = input("Введите категорию (Доход/Расход): ")
         amount = float(input("Введите сумму: "))
@@ -25,7 +25,7 @@ class ExpenseTracker:
             file.write(f"{date},{category},{amount},{description}\n")
         print("Запись успешно добавлена!")
 
-    def edit_record(self) -> None:
+    def edit_record(self) -> None:  # изменить запись
         record_id = int(input("Введите номер записи, которую хотите изменить: "))
         with open(self.file_path, 'r') as file:
             lines = file.readlines()
@@ -41,7 +41,7 @@ class ExpenseTracker:
             file.writelines(lines)
         print("Запись успешно изменена!")
 
-    def search_records(self) -> None:
+    def search_records(self) -> None:  # найти запись
         keyword = input("Введите ключевое слово для поиска: ")
         found_records = []
         with open(self.file_path, 'r') as file:
@@ -58,6 +58,7 @@ class ExpenseTracker:
             print("Записи не найдены.")
 
 
+# основной блок
 file_path: str = "expenses.txt"
 expense_tracker: ExpenseTracker = ExpenseTracker(file_path)
 
