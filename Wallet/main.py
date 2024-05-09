@@ -1,8 +1,8 @@
 class ExpenseTracker:
-    def __init__(self, file_path):
+    def __init__(self, file_path: str):
         self.file_path = file_path
 
-    def show_balance(self):
+    def show_balance(self) -> None:
         income = 0
         expenses = 0
         with open(self.file_path, 'r') as file:
@@ -16,7 +16,7 @@ class ExpenseTracker:
         balance = income - expenses
         print(f"Текущий баланс: {balance}\nДоходы: {income}\nРасходы: {expenses}")
 
-    def add_record(self):
+    def add_record(self) -> None:
         date = input("Введите дату (ГГГГ-ММ-ДД): ")
         category = input("Введите категорию (Доход/Расход): ")
         amount = float(input("Введите сумму: "))
@@ -25,7 +25,7 @@ class ExpenseTracker:
             file.write(f"{date},{category},{amount},{description}\n")
         print("Запись успешно добавлена!")
 
-    def edit_record(self):
+    def edit_record(self) -> None:
         record_id = int(input("Введите номер записи, которую хотите изменить: "))
         with open(self.file_path, 'r') as file:
             lines = file.readlines()
@@ -41,7 +41,7 @@ class ExpenseTracker:
             file.writelines(lines)
         print("Запись успешно изменена!")
 
-    def search_records(self):
+    def search_records(self) -> None:
         keyword = input("Введите ключевое слово для поиска: ")
         found_records = []
         with open(self.file_path, 'r') as file:
@@ -58,8 +58,8 @@ class ExpenseTracker:
             print("Записи не найдены.")
 
 
-file_path = "expenses.txt"
-expense_tracker = ExpenseTracker(file_path)
+file_path: str = "expenses.txt"
+expense_tracker: ExpenseTracker = ExpenseTracker(file_path)
 
 while True:
     print(f"\n"
@@ -67,7 +67,7 @@ while True:
           f"2. Добавить запись\n"
           f"3. Редактировать запись\n"
           f"4. Поиск по записям")
-    choice = input("Выберите действие: ")
+    choice: str = input("Выберите действие: ")
     if choice == "1":
         expense_tracker.show_balance()
     elif choice == "2":
