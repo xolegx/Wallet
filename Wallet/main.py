@@ -17,7 +17,13 @@ class ExpenseTracker:
         print(f"Текущий баланс: {balance}\nДоходы: {income}\nРасходы: {expenses}")
 
     def add_record(self):
-        pass
+        date = input("Введите дату (ГГГГ-ММ-ДД): ")
+        category = input("Введите категорию (Доход/Расход): ")
+        amount = float(input("Введите сумму: "))
+        description = input("Введите описание: ")
+        with open(self.file_path, 'a') as file:
+            file.write(f"{date},{category},{amount},{description}\n")
+        print("Запись успешно добавлена!")
 
     def edit_record(self):
         pass
