@@ -62,7 +62,11 @@ file_path = "expenses.txt"
 expense_tracker = ExpenseTracker(file_path)
 
 while True:
-    print(f"\n1. Вывести баланс \n2. Добавить запись\n3. Редактировать запись\n4. Поиск по записям")
+    print(f"\n"
+          f"1. Вывести баланс \n"
+          f"2. Добавить запись\n"
+          f"3. Редактировать запись\n"
+          f"4. Поиск по записям")
     choice = input("Выберите действие: ")
     if choice == "1":
         expense_tracker.show_balance()
