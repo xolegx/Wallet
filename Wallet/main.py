@@ -58,10 +58,43 @@ class ExpenseTracker:
             print("Записи не найдены.")
 
 
+def test_add_record():  # тест на добавление записи
+    file_path = "test_expenses.txt"
+    expense_tracker = ExpenseTracker(file_path)
+    # Добавляем запись
+    expense_tracker.add_record()
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        assert len(lines) != 0
+    # Проверка содержимого добавленной записи
+    record = lines[0].strip().split(',')
+    assert record[0] == "2024-03-04"  # Проверяемая дата
+    assert record[1] == "Расход"  # Проверяемая категория
+    assert float(record[2]) == 5000.0  # Проверяемая сумма
+    assert record[3] == "Покупка продуктов на др жены"  # Проверяемое описание
+
+def test_edit_record():  # тест на изменение записи
+    file_path = "test_expenses.txt"
+    expense_tracker = ExpenseTracker(file_path)
+    # Добавляем запись для редактирования
+    expense_tracker.add_record()
+    # Редактируем добавленную запись
+    expense_tracker.edit_record()
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        assert len(lines) != 0
+    # Проверка содержимого отредактированной записи
+    record = lines[0].strip().split(',')
+    assert record[0] == "2024-03-01"  # Проверяемая новая дата
+    assert record[1] == "Доход"  # Проверяемая новая категория
+    assert float(record[2]) == 45000.0  # Проверяемая новая сумма
+    assert record[3] == "Зарплата"  # Проверяемое новое описание
+
+
 # основной блок
 file_path: str = "expenses.txt"
 expense_tracker: ExpenseTracker = ExpenseTracker(file_path)
-
+'''
 while True:
     print(f"\n"
           f"1. Вывести баланс \n"
@@ -79,4 +112,7 @@ while True:
         expense_tracker.search_records()
     else:
         print("Некорректный выбор.")
+'''
 
+test_add_record()
+test_edit_record()
